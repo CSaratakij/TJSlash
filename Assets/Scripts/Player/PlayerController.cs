@@ -173,8 +173,8 @@ namespace TJ
 
         void AnimationHandler()
         {
-            anim.SetBool("IsWalk", inputVector != Vector2.zero);
-            anim.SetBool("IsJump", !isGrounded && totalJump > 0 || isPressJump);
+            anim.SetBool("IsWalk", inputVector.x > 0.0f || inputVector.x < 0.0f);
+            anim.SetBool("IsJump", !isGrounded && velocity.y > 0.0f);
         }
 
         void FlipHandler()
