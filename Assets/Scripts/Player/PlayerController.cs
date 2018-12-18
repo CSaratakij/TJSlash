@@ -14,6 +14,9 @@ namespace TJ
         float maxJumpVelocity;
 
         [SerializeField]
+        float onGroundGravity;
+
+        [SerializeField]
         float gravity;
 
         [SerializeField]
@@ -156,7 +159,12 @@ namespace TJ
                 }
             }
             else {
-                velocity.y -= ((rigid.velocity.y * rigid.velocity.y) + gravity) * Time.fixedDeltaTime;
+                if (isGrounded) {
+                    velocity.y = rigid.velocity.y + (-onGroundGravity * Time.fixedDeltaTime);
+                }
+                else {
+                    velocity.y -= ((rigid.velocity.y * rigid.velocity.y) + gravity) * Time.fixedDeltaTime;
+                }
             }
 
             velocity.y = Mathf.Clamp(velocity.y, -verticalTerminalVelocity * Time.fixedDeltaTime, jumpForce);
@@ -166,7 +174,7 @@ namespace TJ
         void AnimationHandler()
         {
             anim.SetBool("IsWalk", inputVector != Vector2.zero);
-            anim.SetBool("IsJump", !isGrounded);
+            anim.SetBool("IsJump", !isGrounded && totalJump > 0 || isPressJump);
         }
 
         void FlipHandler()

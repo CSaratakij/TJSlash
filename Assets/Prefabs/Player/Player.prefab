@@ -170,8 +170,9 @@ MonoBehaviour:
   moveForce: 360
   jumpForce: 700
   maxJumpVelocity: 120
+  onGroundGravity: 200
   gravity: 60
-  verticalTerminalVelocity: 800
+  verticalTerminalVelocity: 1250
   ground: {fileID: 4947738607181720339}
   groundLayer:
     serializedVersion: 2
@@ -190,7 +191,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.07053399}
+  m_Offset: {x: 0.047048807, y: -0.13474703}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -201,7 +202,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2753856, y: 2.1374526}
+  m_Size: {x: 0.85084677, y: 2.0090265}
   m_EdgeRadius: 0
 --- !u!82 &124901327
 AudioSource:
@@ -223,7 +224,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 1.0011954
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
