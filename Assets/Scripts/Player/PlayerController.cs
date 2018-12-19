@@ -23,6 +23,9 @@ namespace TJ
         float verticalTerminalVelocity;
 
         [SerializeField]
+        Transform head;
+
+        [SerializeField]
         Transform ground;
 
         [SerializeField]
@@ -55,6 +58,7 @@ namespace TJ
         Vector2 velocity;
         Vector2 inputVector;
         Vector2 groundRaycastDirection;
+        Vector2 boxCastHeadSize;
 
         Vector3 newScale;
 
@@ -62,7 +66,9 @@ namespace TJ
         AudioSource audioSource;
 
         Rigidbody2D rigid;
-        RaycastHit2D raycastHit;
+
+        RaycastHit2D raycastHeadHit;
+        RaycastHit2D raycastGroundHit;
 
         void Awake()
         {
@@ -87,6 +93,7 @@ namespace TJ
             audioSource = GetComponent<AudioSource>();
             rigid = GetComponent<Rigidbody2D>();
             groundRaycastDirection = new Vector3(-1.0f, -1.0f);
+            boxCastHeadSize = new Vector2(0.8f, 1.0f);
         }
 
         void InputHandler()
@@ -135,9 +142,11 @@ namespace TJ
         void MovementHandler()
         {
             groundRaycastDirection.x = isFacingRight ? -1.0f : 1.0f;
-            raycastHit = Physics2D.Raycast(ground.position, groundRaycastDirection, 0.65f, groundLayer, 0.0f, 0.0f);
 
-            isGrounded = (raycastHit.collider == null) ? false : true;
+            raycastGroundHit = Physics2D.Raycast(ground.position, groundRaycastDirection, 0.65f, groundLayer, 0.0f, 0.0f);
+            raycastHeadHit = Physics2D.BoxCast(head.position, boxCastHeadSize, 0.0f, Vector2.up, 0.03f, groundLayer);
+
+            isGrounded = (raycastGroundHit.collider == null) ? false : true;
 
             if (isGrounded) {
                 totalJump = 0;
@@ -150,19 +159,24 @@ namespace TJ
             }
 
             if (isPressJump && !isJumped && totalJump < 1) {
-                if (currentJumpVelocity < maxJumpVelocity) {
+                if (currentJumpVelocity < maxJumpVelocity && raycastHeadHit.collider == null) {
                     velocity.y = jumpForce * Time.fixedDeltaTime;
                     currentJumpVelocity += jumpForce * Time.fixedDeltaTime;
 
                     if (allowPlayJumpAudio) {
                         audioSource.clip = jumpAudioClip;
+
                         if (!audioSource.isPlaying)
                             audioSource.Play();
+
                         allowPlayJumpAudio = false;
                     }
                 }
                 else {
                     isJumped = true;
+                    if (raycastHeadHit.collider != null) {
+                        velocity.y = -onGroundGravity * Time.fixedDeltaTime;
+                    }
                 }
             }
             else {
