@@ -32,12 +32,17 @@ namespace TJ
         AudioClip jumpAudioClip;
 
         int totalJump;
+
+        float oldRange;
+        float newRange;
+
+        float newPitch;
         float currentJumpVelocity;
 
         bool isGrounded;
+
         bool isPressJump;
         bool isJumped;
-
         bool isJumpKeyDown;
         bool isJumpKeyUp;
 
@@ -50,6 +55,8 @@ namespace TJ
         Vector2 velocity;
         Vector2 inputVector;
         Vector2 groundRaycastDirection;
+
+        Vector3 newScale;
 
         Animator anim;
         AudioSource audioSource;
@@ -159,12 +166,10 @@ namespace TJ
                 }
             }
             else {
-                if (isGrounded) {
+                if (isGrounded)
                     velocity.y = rigid.velocity.y + (-onGroundGravity * Time.fixedDeltaTime);
-                }
-                else {
+                else
                     velocity.y -= ((rigid.velocity.y * rigid.velocity.y) + gravity) * Time.fixedDeltaTime;
-                }
             }
 
             velocity.y = Mathf.Clamp(velocity.y, -verticalTerminalVelocity * Time.fixedDeltaTime, jumpForce);
@@ -173,24 +178,23 @@ namespace TJ
 
         void AnimationHandler()
         {
-            anim.SetBool("IsWalk", inputVector.x > 0.0f || inputVector.x < 0.0f);
+            anim.SetBool("IsWalk", isGrounded && (inputVector.x > 0.0f || inputVector.x < 0.0f));
             anim.SetBool("IsJump", !isGrounded && velocity.y > 0.0f);
         }
 
         void FlipHandler()
         {
-            if (inputVector.x > 0.0f && !isFacingRight) {
+            if (inputVector.x > 0.0f && !isFacingRight)
                 FlipSprite();
-            }
-            else if (inputVector.x < 0.0f && isFacingRight) {
+
+            else if (inputVector.x < 0.0f && isFacingRight)
                 FlipSprite();
-            }
         }
 
         void FlipSprite()
         {
             isFacingRight = !isFacingRight;
-            Vector3 newScale = transform.localScale;
+            newScale = transform.localScale;
             newScale.x *= -1.0f;
             transform.localScale = newScale;
         }
