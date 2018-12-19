@@ -36,9 +36,6 @@ namespace TJ
 
         int totalJump;
 
-        float oldRange;
-        float newRange;
-
         float newPitch;
         float currentJumpVelocity;
 
@@ -80,6 +77,7 @@ namespace TJ
             InputHandler();
             AnimationHandler();
             FlipHandler();
+            AudioHandler();
         }
 
         void FixedUpdate()
@@ -93,7 +91,7 @@ namespace TJ
             audioSource = GetComponent<AudioSource>();
             rigid = GetComponent<Rigidbody2D>();
             groundRaycastDirection = new Vector3(-1.0f, -1.0f);
-            boxCastHeadSize = new Vector2(0.8f, 1.0f);
+            boxCastHeadSize = new Vector2(0.855f, 1.0f);
         }
 
         void InputHandler()
@@ -131,12 +129,6 @@ namespace TJ
                 isJumped = false;
                 totalJump += 1;
             }
-
-            float oldRange = (maxJumpVelocity - 0.0f);
-            float newRange = (1.14f - 0.8f);
-            float newPitch = (((currentJumpVelocity - 0.0f) * newRange) / oldRange) + 0.8f;
-
-            audioSource.pitch = newPitch;
         }
 
         void MovementHandler()
@@ -211,6 +203,19 @@ namespace TJ
             newScale = transform.localScale;
             newScale.x *= -1.0f;
             transform.localScale = newScale;
+        }
+
+        void AudioHandler()
+        {
+            newPitch = ConvertNumberLine(currentJumpVelocity, 0.0f, maxJumpVelocity, 0.8f, 1.14f);
+            audioSource.pitch = newPitch;
+        }
+
+        float ConvertNumberLine(float value, float oldMin, float oldMax, float newMin, float newMax)
+        {
+            float oldRange = (oldMax - oldMin);
+            float newRange = (newMax - newMin);
+            return (((value - oldMin) * newRange) / oldRange) + newMin;
         }
     }
 }
