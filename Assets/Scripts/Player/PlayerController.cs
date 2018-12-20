@@ -40,6 +40,10 @@ namespace TJ
         float currentJumpVelocity;
 
         bool isGrounded;
+        bool isFalling;
+
+        bool currentGroundState;
+        bool previousGroundState;
 
         bool isPressJump;
         bool isJumped;
@@ -56,6 +60,7 @@ namespace TJ
         Vector2 inputVector;
         Vector2 groundRaycastDirection;
         Vector2 boxCastHeadSize;
+        Vector2 boxCastBodySize;
 
         Vector3 newScale;
 
@@ -66,6 +71,7 @@ namespace TJ
 
         RaycastHit2D raycastHeadHit;
         RaycastHit2D raycastGroundHit;
+        RaycastHit2D raycastFallingCheck;
 
         void Awake()
         {
@@ -92,6 +98,7 @@ namespace TJ
             rigid = GetComponent<Rigidbody2D>();
             groundRaycastDirection = new Vector3(-1.0f, -1.0f);
             boxCastHeadSize = new Vector2(0.855f, 1.0f);
+            boxCastBodySize = new Vector2(0.855f, 0.4f);
         }
 
         void InputHandler()
@@ -135,18 +142,32 @@ namespace TJ
         {
             groundRaycastDirection.x = isFacingRight ? -1.0f : 1.0f;
 
-            raycastGroundHit = Physics2D.Raycast(ground.position, groundRaycastDirection, 0.65f, groundLayer, 0.0f, 0.0f);
+            raycastGroundHit = Physics2D.BoxCast(ground.position, boxCastBodySize, 0.0f, Vector2.down, 0.03f, groundLayer);
             raycastHeadHit = Physics2D.BoxCast(head.position, boxCastHeadSize, 0.0f, Vector2.up, 0.03f, groundLayer);
+            raycastFallingCheck = Physics2D.BoxCast(ground.position, boxCastBodySize, 0.0f, Vector2.down, 1.2f, groundLayer); 
 
-            isGrounded = (raycastGroundHit.collider == null) ? false : true;
+            isGrounded = raycastGroundHit.collider != null;
+
+            previousGroundState = currentGroundState;
+            currentGroundState = isGrounded;
+
+            if (raycastFallingCheck.collider == null)
+                isFalling = true;
+            else
+                isFalling = velocity.y <= 0.0f;
 
             if (isGrounded) {
                 totalJump = 0;
+                isFalling = false;
                 allowPlayJumpAudio = true;
                 currentJumpVelocity = 0.0f;
                 velocity.x = (inputVector.x * moveForce) * Time.fixedDeltaTime;
             }
             else {
+                if (previousGroundState && !isPressJump && isFalling && totalJump <= 0) {
+                    totalJump = 1;
+                }
+
                 velocity.x = (inputVector.x * (moveForce * 0.85f)) * Time.fixedDeltaTime;
             }
 
