@@ -73,11 +73,12 @@ GameObject:
   - component: {fileID: 7989751900249506712}
   - component: {fileID: 4947738608901973876}
   - component: {fileID: 4947738608901973879}
+  - component: {fileID: 4809980166524136021}
   - component: {fileID: 4947738608901973878}
   - component: {fileID: 124901327}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -198,11 +199,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0c3bf3745b935c4391bdd5b260f4181, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveForce: 360
-  jumpForce: 700
-  maxJumpVelocity: 120
+  moveForce: 420
+  jumpForce: 900
+  maxJumpVelocity: 180
   onGroundGravity: 200
-  gravity: 60
+  gravity: 70
   verticalTerminalVelocity: 1250
   head: {fileID: 1995188544}
   ground: {fileID: 4947738607181720339}
@@ -210,6 +211,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   jumpAudioClip: {fileID: 8300000, guid: cd9754e3e25de9d4495ea9338dfe83aa, type: 3}
+--- !u!114 &4809980166524136021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4947738608901973867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a19502eaaa96e44dab90b8fb1596f0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health:
+    current: 100
+    max: 100
 --- !u!61 &4947738608901973878
 BoxCollider2D:
   m_ObjectHideFlags: 0
