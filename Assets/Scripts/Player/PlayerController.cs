@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace TJ
 {
@@ -55,6 +56,7 @@ namespace TJ
 
         bool isFacingRight = true;
         bool allowPlayJumpAudio;
+        bool isInvinsible = false;
 
         Vector2 velocity;
         Vector2 inputVector;
@@ -72,6 +74,13 @@ namespace TJ
         RaycastHit2D raycastHeadHit;
         RaycastHit2D raycastGroundHit;
         RaycastHit2D raycastFallingCheck;
+
+        SpriteRenderer spriteRenderer;
+        PlayerStat stat;
+
+        Color flickeringColor;
+        WaitForSeconds flickeringWait;
+
 
         void Awake()
         {
@@ -91,14 +100,52 @@ namespace TJ
             MovementHandler();
         }
 
+        void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (isInvinsible)
+                return;
+
+            if (collision.gameObject.CompareTag("Enemy")) {
+                stat.health.Remove(1);
+                isInvinsible = true;
+                StartCoroutine(Flickering_Begin_Callback());
+            }
+        }
+
+        IEnumerator Flickering_Begin_Callback()
+        {
+            IEnumerator flickeringCallback = Flickering_Callback();
+            StartCoroutine(flickeringCallback);
+            yield return flickeringWait;
+            StopCoroutine(flickeringCallback);
+            spriteRenderer.color = Color.white;
+            yield return new WaitForSeconds(0.3f);
+            isInvinsible = false;
+        }
+
+        IEnumerator Flickering_Callback()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(0.1f);
+                spriteRenderer.color = flickeringColor;
+                yield return new WaitForSeconds(0.2f);
+                spriteRenderer.color = Color.white;
+            }
+        }
+
         void Initialize()
         {
             anim = GetComponent<Animator>();
             audioSource = GetComponent<AudioSource>();
             rigid = GetComponent<Rigidbody2D>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
+            stat = GetComponent<PlayerStat>();
             groundRaycastDirection = new Vector3(-1.0f, -1.0f);
             boxCastHeadSize = new Vector2(0.855f, 1.0f);
             boxCastBodySize = new Vector2(0.855f, 0.4f);
+            flickeringColor = new Color(1.0f, 1.0f, 1.0f, 0.2f);
+            flickeringWait = new WaitForSeconds(1.2f);
         }
 
         void InputHandler()

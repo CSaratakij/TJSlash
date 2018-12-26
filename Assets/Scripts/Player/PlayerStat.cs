@@ -4,9 +4,6 @@ namespace TJ
 {
     public class PlayerStat : MonoBehaviour
     {
-        [SerializeField]
-        StatusInt health;
-
-        public StatusInt Health => health;
+        public StatusInt health;
     }
 }

@@ -224,8 +224,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health:
-    current: 100
-    max: 100
+    current: 4
+    max: 4
 --- !u!61 &4947738608901973878
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ namespace TJ
         Transform target;
 
         [SerializeField]
-        float amount;
+        float smoothDamp;
 
 
         Vector3 offset;
@@ -22,10 +22,9 @@ namespace TJ
         void LateUpdate()
         {
             Vector3 newTarget = target.position;
-            newTarget.x -= 2.0f;
             newTarget.y = 0.0f;
             newTarget.z -= offset.z;
-            transform.position = Vector3.Lerp(transform.position, newTarget, amount);
+            transform.position = Vector3.Lerp(transform.position, newTarget, smoothDamp);
         }
     }
 }
