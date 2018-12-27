@@ -58,6 +58,8 @@ namespace TJ
         bool allowPlayJumpAudio;
         bool isInvinsible = false;
 
+        bool isDead;
+
         Vector2 velocity;
         Vector2 inputVector;
         Vector2 groundRaycastDirection;
@@ -85,6 +87,12 @@ namespace TJ
         void Awake()
         {
             Initialize();
+            SubscribeEvents();
+        }
+
+        void OnDestroy()
+        {
+            UnSubscribeEvents();
         }
 
         void Update()
@@ -148,8 +156,29 @@ namespace TJ
             flickeringWait = new WaitForSeconds(1.2f);
         }
 
+        void SubscribeEvents()
+        {
+            stat.health.OnValueChanged += health_OnValueChanged;
+        }
+        
+        void UnSubscribeEvents()
+        {
+            stat.health.OnValueChanged -= health_OnValueChanged;
+        }
+
+        void health_OnValueChanged(int value)
+        {
+            isDead = (value <= 0);
+        }
+
         void InputHandler()
         {
+            if (isDead) {
+                inputVector = Vector2.zero;
+                isPressJump = false;
+                return;
+            }
+
             inputVector.x = Input.GetAxisRaw("Horizontal");
             inputVector.y = Input.GetAxisRaw("Vertical");
 
