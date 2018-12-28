@@ -95,6 +95,12 @@ namespace TJ
             SubscribeEvents();
         }
 
+        //Test
+        void Start()
+        {
+            GameController.Instance.GameStart();
+        }
+
         void OnDestroy()
         {
             UnSubscribeEvents();
@@ -152,6 +158,11 @@ namespace TJ
             spriteRenderer.color = Color.white;
             yield return new WaitForSeconds(0.3f);
             isInvinsible = false;
+
+            if (stat.health.current <= 0) {
+                Debug.Log("Dead...");
+                GameController.Instance.GameStop();
+            }
         }
 
         IEnumerator Flickering_Callback()
