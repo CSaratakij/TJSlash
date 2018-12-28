@@ -2,6 +2,7 @@
 
 namespace TJ
 {
+    [RequireComponent(typeof(DamageAble))]
     public class FallingSpike : MonoBehaviour
     {
         [SerializeField]
@@ -12,12 +13,14 @@ namespace TJ
 
         bool isFalling;
 
+        Stat stat;
         RaycastHit2D hitResult;
         Rigidbody2D rigid;
 
 
         void Awake()
         {
+            stat = GetComponent<Stat>();
             rigid = GetComponent<Rigidbody2D>();
         }
 
@@ -44,7 +47,10 @@ namespace TJ
 
         void OnTriggerEnter2D(Collider2D collision)
         {
-            gameObject.SetActive(false);
+            if (!collision.gameObject.CompareTag("Bullet")) {
+                stat.health.Clear();
+                gameObject.SetActive(false);
+            }
         }
     }
 }
