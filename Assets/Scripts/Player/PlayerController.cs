@@ -40,6 +40,7 @@ namespace TJ
         Gun gun;
 
         int totalJump;
+        int totalCoin;
 
         float newPitch;
         float currentJumpVelocity;
@@ -131,11 +132,14 @@ namespace TJ
                 stat.health.Restore(1);
                 collision.gameObject.SetActive(false);
             }
-
-            if (!isInvinsible && collision.gameObject.CompareTag("Enemy")) {
+            else if (!isInvinsible && collision.gameObject.CompareTag("Enemy")) {
                 stat.health.Remove(1);
                 isInvinsible = true;
                 StartCoroutine(Flickering_Begin_Callback());
+            }
+            else if (collision.gameObject.CompareTag("Coin")) {
+                totalCoin += 1;
+                collision.gameObject.SetActive(false);
             }
         }
 
@@ -188,6 +192,8 @@ namespace TJ
         void health_OnValueChanged(int value)
         {
             isDead = (value <= 0);
+            if (isDead)
+                anim.SetTrigger("Dead");
         }
 
         void InputHandler()
