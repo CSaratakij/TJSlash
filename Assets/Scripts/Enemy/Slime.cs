@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TJ
 {
-    [RequireComponent(typeof(Enemy))]
+    [RequireComponent(typeof(DamageAble))]
     public class Slime : MonoBehaviour
     {
 

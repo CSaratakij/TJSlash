@@ -2,7 +2,7 @@
 
 namespace TJ
 {
-    public class PlayerStat : MonoBehaviour
+    public class Stat : MonoBehaviour
     {
         public StatusInt health;
     }

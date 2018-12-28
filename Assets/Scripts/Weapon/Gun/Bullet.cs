@@ -22,8 +22,10 @@ namespace TJ
 
         void OnTriggerEnter2D(Collider2D collider)
         {
-            if (!collider.gameObject.CompareTag("Bullet") || collider.gameObject.CompareTag("Potion"))
-                gameObject.SetActive(false);
+            if (collider.gameObject.CompareTag("Bullet") || collider.gameObject.CompareTag("Potion"))
+                return;
+
+            gameObject.SetActive(false);
         }
 
         public void Move(Vector2 direction, float force)

@@ -1,15 +1,14 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TJ
 {
-    [RequireComponent(typeof(EnemyStat))]
-    public class Enemy : MonoBehaviour
+    [RequireComponent(typeof(Stat))]
+    public class DamageAble : MonoBehaviour
     {
         WaitForSeconds turnNormalWait;
         SpriteRenderer spriteRenderer;
-        EnemyStat stat;
+        Stat stat;
 
         void Awake()
         {
@@ -32,7 +31,7 @@ namespace TJ
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             turnNormalWait = new WaitForSeconds(0.12f);
-            stat = GetComponent<EnemyStat>();
+            stat = GetComponent<Stat>();
         }
 
         IEnumerator hitCallback()

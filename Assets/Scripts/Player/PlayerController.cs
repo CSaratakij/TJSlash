@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace TJ
 {
+    [RequireComponent(typeof(Stat))]
     public class PlayerController : MonoBehaviour
     {
         [SerializeField]
@@ -81,7 +82,7 @@ namespace TJ
         RaycastHit2D raycastFallingCheck;
 
         SpriteRenderer spriteRenderer;
-        PlayerStat stat;
+        Stat stat;
 
         Color flickeringColor;
         WaitForSeconds flickeringWait;
@@ -166,7 +167,7 @@ namespace TJ
             audioSource = GetComponent<AudioSource>();
             rigid = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
-            stat = GetComponent<PlayerStat>();
+            stat = GetComponent<Stat>();
             groundRaycastDirection = new Vector3(-1.0f, -1.0f);
             boxCastHeadSize = new Vector2(0.855f, 1.0f);
             boxCastBodySize = new Vector2(0.855f, 0.4f);

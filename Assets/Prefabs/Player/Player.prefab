@@ -72,8 +72,8 @@ GameObject:
   - component: {fileID: 4947738608901973866}
   - component: {fileID: 7989751900249506712}
   - component: {fileID: 4947738608901973876}
+  - component: {fileID: 7335715688723991960}
   - component: {fileID: 4947738608901973879}
-  - component: {fileID: 4809980166524136021}
   - component: {fileID: 4947738608901973878}
   - component: {fileID: 124901327}
   m_Layer: 8
@@ -188,6 +188,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &7335715688723991960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4947738608901973867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d4f22325310532478b43654274c5178, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health:
+    current: 4
+    max: 4
 --- !u!114 &4947738608901973879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,21 +228,6 @@ MonoBehaviour:
     m_Bits: 1
   jumpAudioClip: {fileID: 8300000, guid: cd9754e3e25de9d4495ea9338dfe83aa, type: 3}
   gun: {fileID: 401538697122158667}
---- !u!114 &4809980166524136021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4947738608901973867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a19502eaaa96e44dab90b8fb1596f0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health:
-    current: 4
-    max: 4
 --- !u!61 &4947738608901973878
 BoxCollider2D:
   m_ObjectHideFlags: 0
