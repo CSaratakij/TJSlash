@@ -52,11 +52,6 @@ namespace TJ
             MoveHandler();
         }
 
-        void Update()
-        {
-            AnimationHandler();
-        }
-
         void LateUpdate()
         {
             FlipHandler();
@@ -74,11 +69,6 @@ namespace TJ
         void MoveHandler()
         {
             rigid.velocity = (isMoveTowardRight ? Vector2.right : Vector2.left) * moveForce * Time.fixedDeltaTime;
-        }
-
-        void AnimationHandler()
-        {
-            anim.SetBool("IsWalk", true);
         }
 
         void FlipHandler()

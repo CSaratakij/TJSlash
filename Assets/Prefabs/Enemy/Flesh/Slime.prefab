@@ -253,6 +253,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMoveTowardRight: 1
-  moveForce: 100
+  moveForce: 80
   leftBound: {fileID: 3342536240322649868}
   rightBound: {fileID: 1974354736361103813}
