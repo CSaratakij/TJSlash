@@ -187,7 +187,7 @@ namespace TJ
             boxCastHeadSize = new Vector2(0.855f, 1.0f);
             boxCastBodySize = new Vector2(0.855f, 0.4f);
             flickeringColor = new Color(1.0f, 1.0f, 1.0f, 0.2f);
-            flickeringWait = new WaitForSeconds(1.2f);
+            flickeringWait = new WaitForSeconds(1.0f);
         }
 
         void SubscribeEvents()
