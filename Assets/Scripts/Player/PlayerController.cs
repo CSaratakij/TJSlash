@@ -35,6 +35,9 @@ namespace TJ
         [SerializeField]
         AudioClip jumpAudioClip;
 
+        [SerializeField]
+        Gun gun;
+
         int totalJump;
 
         float newPitch;
@@ -110,6 +113,7 @@ namespace TJ
 
         void OnCollisionEnter2D(Collision2D collision)
         {
+            //Need fix -> Change to overlap box with enemy layermask 
             if (isInvinsible)
                 return;
 
@@ -117,6 +121,22 @@ namespace TJ
                 stat.health.Remove(1);
                 isInvinsible = true;
                 StartCoroutine(Flickering_Begin_Callback());
+            }
+        }
+
+        void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (isInvinsible)
+                return;
+
+            if (collision.gameObject.CompareTag("Enemy")) {
+                stat.health.Remove(1);
+                isInvinsible = true;
+                StartCoroutine(Flickering_Begin_Callback());
+            }
+            else if (collision.gameObject.CompareTag("Potion")) {
+                stat.health.Restore(1);
+                collision.gameObject.SetActive(false);
             }
         }
 
@@ -211,6 +231,10 @@ namespace TJ
             if (isJumpKeyUp) {
                 isJumped = false;
                 totalJump += 1;
+            }
+
+            if (Input.GetButton("Fire1")) {
+                gun.BeginShoot(isFacingRight ? Vector2.right : Vector2.left);
             }
         }
 
