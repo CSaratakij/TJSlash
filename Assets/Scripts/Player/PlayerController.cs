@@ -192,8 +192,11 @@ namespace TJ
         void health_OnValueChanged(int value)
         {
             isDead = (value <= 0);
-            if (isDead)
+            if (isDead) {
                 anim.SetTrigger("Dead");
+                gameObject.layer = LayerMask.NameToLayer("PlayerDead");
+                spriteRenderer.sortingOrder = 1;
+            }
         }
 
         void InputHandler()

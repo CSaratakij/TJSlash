@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 4947738608901973879}
   - component: {fileID: 4947738608901973878}
   - component: {fileID: 124901327}
+  - component: {fileID: 409105266}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -225,7 +226,7 @@ MonoBehaviour:
   ground: {fileID: 4947738607181720339}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 513
   jumpAudioClip: {fileID: 8300000, guid: cd9754e3e25de9d4495ea9338dfe83aa, type: 3}
   gun: {fileID: 401538697122158667}
 --- !u!61 &4947738608901973878
@@ -350,6 +351,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &409105266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4947738608901973867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d4f22325310532478b43654274c5178, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health:
+    current: 0
+    max: 0
 --- !u!1001 &3029370412961065440
 PrefabInstance:
   m_ObjectHideFlags: 0
