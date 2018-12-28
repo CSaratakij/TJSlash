@@ -228,7 +228,7 @@ MonoBehaviour:
     m_Bits: 4609
   headButtLayer:
     serializedVersion: 2
-    m_Bits: 513
+    m_Bits: 1
   oneWayCollisionLayer:
     serializedVersion: 2
     m_Bits: 4096
@@ -422,6 +422,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3429756125658313131, guid: 504733d18daec6045a25d26bf3e47526,
+        type: 3}
+      propertyPath: maxBulletPooling
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 504733d18daec6045a25d26bf3e47526, type: 3}

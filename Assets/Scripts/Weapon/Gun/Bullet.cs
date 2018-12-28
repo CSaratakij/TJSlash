@@ -20,7 +20,7 @@ namespace TJ
 
         void OnTriggerEnter2D(Collider2D collider)
         {
-            if (collider.gameObject.CompareTag("Bullet") || collider.gameObject.CompareTag("Potion"))
+            if (collider.gameObject.CompareTag("Bullet") || collider.gameObject.CompareTag("Potion") || collider.gameObject.CompareTag("Coin"))
                 return;
 
             gameObject.SetActive(false);

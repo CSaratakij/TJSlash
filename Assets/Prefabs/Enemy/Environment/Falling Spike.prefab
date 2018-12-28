@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a872850dbc9496545aff3f686a4c2be1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallForce: 400
+  fallForce: 500
   triggerFallingLayer:
     serializedVersion: 2
     m_Bits: 256

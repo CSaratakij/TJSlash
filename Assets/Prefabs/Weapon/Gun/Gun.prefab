@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxBulletPooling: 10
-  bulletSpeed: 900
+  bulletSpeed: 800
   bulletPrefabs: {fileID: 4510539884731113302, guid: 8daddf02df5c8784da126d0de68ec4d0,
     type: 3}
   barrelPoint: {fileID: 2532319138015773445}
@@ -62,8 +62,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f029c16d8bb0d458476e55c8065c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  current: 0.25
-  max: 0.25
+  current: 0.3
+  max: 0.3
 --- !u!1 &6572013162513905746
 GameObject:
   m_ObjectHideFlags: 0
