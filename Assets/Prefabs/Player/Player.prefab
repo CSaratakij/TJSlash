@@ -225,7 +225,13 @@ MonoBehaviour:
   ground: {fileID: 4947738607181720339}
   groundLayer:
     serializedVersion: 2
+    m_Bits: 4609
+  headButtLayer:
+    serializedVersion: 2
     m_Bits: 513
+  oneWayCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 4096
   jumpAudioClip: {fileID: 8300000, guid: cd9754e3e25de9d4495ea9338dfe83aa, type: 3}
   gun: {fileID: 401538697122158667}
 --- !u!61 &4947738608901973878

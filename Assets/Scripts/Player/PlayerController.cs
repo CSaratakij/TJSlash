@@ -34,6 +34,12 @@ namespace TJ
         LayerMask groundLayer;
 
         [SerializeField]
+        LayerMask headButtLayer;
+
+        [SerializeField]
+        LayerMask oneWayCollisionLayer;
+
+        [SerializeField]
         AudioClip jumpAudioClip;
 
         [SerializeField]
@@ -51,6 +57,9 @@ namespace TJ
         bool currentGroundState;
         bool previousGroundState;
 
+        bool currentOneWayCollisionState;
+        bool previousOneWayCollsionState;
+
         bool isPressJump;
         bool isJumped;
         bool isJumpKeyDown;
@@ -64,6 +73,7 @@ namespace TJ
         bool isInvinsible = false;
 
         bool isDead;
+        bool isBeginOneWayCollision;
 
         Vector2 velocity;
         Vector2 inputVector;
@@ -81,6 +91,7 @@ namespace TJ
         RaycastHit2D raycastHeadHit;
         RaycastHit2D raycastGroundHit;
         RaycastHit2D raycastFallingCheck;
+        RaycastHit2D raycastOneWayCollision;
 
         SpriteRenderer spriteRenderer;
         Stat stat;
@@ -262,8 +273,9 @@ namespace TJ
             groundRaycastDirection.x = isFacingRight ? -1.0f : 1.0f;
 
             raycastGroundHit = Physics2D.BoxCast(ground.position, boxCastBodySize, 0.0f, Vector2.down, 0.03f, groundLayer);
-            raycastHeadHit = Physics2D.BoxCast(head.position, boxCastHeadSize, 0.0f, Vector2.up, 0.03f, groundLayer);
+            raycastHeadHit = Physics2D.BoxCast(head.position, boxCastHeadSize, 0.0f, Vector2.up, 0.03f, headButtLayer);
             raycastFallingCheck = Physics2D.BoxCast(ground.position, boxCastBodySize, 0.0f, Vector2.down, 1.2f, groundLayer); 
+            raycastOneWayCollision = Physics2D.BoxCast(ground.position, boxCastBodySize, 0.0f, Vector2.down, 0.03f, oneWayCollisionLayer);
 
             isGrounded = raycastGroundHit.collider != null;
 
@@ -275,8 +287,21 @@ namespace TJ
             else
                 isFalling = velocity.y <= 0.0f;
 
+            previousOneWayCollsionState = currentOneWayCollisionState;
+            currentOneWayCollisionState = raycastOneWayCollision.collider != null;
+
+            isBeginOneWayCollision = !previousOneWayCollsionState && currentOneWayCollisionState;
+
             if (isGrounded) {
-                totalJump = 0;
+                if (velocity.y > 0.0f && raycastOneWayCollision.collider != null && isBeginOneWayCollision) {
+                    totalJump = 1;
+                    isJumped = true;
+                    isBeginOneWayCollision = false;
+                }
+                else {
+                    totalJump = 0;
+                }
+
                 isFalling = false;
                 allowPlayJumpAudio = true;
                 currentJumpVelocity = 0.0f;
