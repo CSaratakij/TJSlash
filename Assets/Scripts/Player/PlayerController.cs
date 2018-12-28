@@ -126,17 +126,15 @@ namespace TJ
 
         void OnTriggerEnter2D(Collider2D collision)
         {
-            if (isInvinsible)
-                return;
+            if ((stat.health.current < stat.health.max) && (collision.gameObject.CompareTag("Potion"))) {
+                stat.health.Restore(1);
+                collision.gameObject.SetActive(false);
+            }
 
-            if (collision.gameObject.CompareTag("Enemy")) {
+            if (!isInvinsible && collision.gameObject.CompareTag("Enemy")) {
                 stat.health.Remove(1);
                 isInvinsible = true;
                 StartCoroutine(Flickering_Begin_Callback());
-            }
-            else if (collision.gameObject.CompareTag("Potion")) {
-                stat.health.Restore(1);
-                collision.gameObject.SetActive(false);
             }
         }
 
