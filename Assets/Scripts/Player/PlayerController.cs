@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace TJ
 {
     [RequireComponent(typeof(Stat))]
@@ -44,6 +48,15 @@ namespace TJ
 
         [SerializeField]
         Gun gun;
+
+        [SerializeField]
+        Vector3 offset;
+
+        [SerializeField]
+        Vector2 size;
+
+        [SerializeField]
+        LayerMask enemyLayer;
 
         int totalJump;
         int totalCoin;
@@ -100,6 +113,14 @@ namespace TJ
         WaitForSeconds flickeringWait;
 
 
+#if UNITY_EDITOR
+        void OnDrawGizmos()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireCube(transform.position + offset, size);
+        }
+#endif
+
         void Awake()
         {
             Initialize();
@@ -121,40 +142,20 @@ namespace TJ
 
         void FixedUpdate()
         {
+            CheckHitEnemy();
             MovementHandler();
-        }
-
-        void OnCollisionEnter2D(Collision2D collision)
-        {
-            //Need fix -> Change to overlap box with enemy layermask 
-            if (isInvinsible)
-                return;
-
-            if (isDead)
-                return;
-
-            if (collision.gameObject.CompareTag("Enemy")) {
-                stat.health.Remove(1);
-                isInvinsible = true;
-                StartCoroutine(Flickering_Begin_Callback());
-            }
         }
 
         void OnTriggerEnter2D(Collider2D collision)
         {
-            if ((stat.health.current < stat.health.max) && (collision.gameObject.CompareTag("Potion"))) {
+            if (!isDead && !isInvinsible && (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet"))) {
+                stat.health.Remove(1);
+                StartCoroutine(Flickering_Begin_Callback());
+                isInvinsible = true;
+            }
+            else if ((stat.health.current < stat.health.max) && (collision.gameObject.CompareTag("Potion"))) {
                 stat.health.Restore(1);
                 collision.gameObject.SetActive(false);
-            }
-            else if (!isInvinsible && collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet")) {
-
-                if (isDead)
-                    return;
-
-                stat.health.Remove(1);
-                isInvinsible = true;
-
-                StartCoroutine(Flickering_Begin_Callback());
             }
             else if (collision.gameObject.CompareTag("Coin")) {
                 totalCoin += 1;
@@ -276,8 +277,34 @@ namespace TJ
             }
         }
 
+        void CheckHitEnemy()
+        {
+            if (isDead)
+                return;
+
+            if (isInvinsible)
+                return;
+
+            Collider2D collider = Physics2D.OverlapBox(transform.position + offset, size, 0.0f, enemyLayer, 0.0f, 0.0f);
+
+            if (collider == null)
+                return;
+
+            stat.health.Remove(1);
+            StartCoroutine(Flickering_Begin_Callback());
+
+            isInvinsible = true;
+        }
+
         void MovementHandler()
         {
+            if (!GameController.IsGameStart) {
+                velocity.x = 0;
+                velocity.y = -onGroundGravity * Time.fixedDeltaTime;
+                rigid.velocity = velocity;
+                return;
+            }
+
             groundRaycastDirection.x = isFacingRight ? -1.0f : 1.0f;
 
             raycastGroundHit = Physics2D.BoxCast(ground.position, boxCastBodySize, 0.0f, Vector2.down, 0.03f, groundLayer);

@@ -234,6 +234,11 @@ MonoBehaviour:
     m_Bits: 4096
   jumpAudioClip: {fileID: 8300000, guid: cd9754e3e25de9d4495ea9338dfe83aa, type: 3}
   gun: {fileID: 401538697122158667}
+  offset: {x: 0.04704881, y: -0.1293229, z: 0}
+  size: {x: 0.9, y: 2}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!61 &4947738608901973878
 BoxCollider2D:
   m_ObjectHideFlags: 0
