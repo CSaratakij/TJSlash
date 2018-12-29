@@ -136,6 +136,9 @@ namespace TJ
             if (isInvinsible)
                 return;
 
+            if (isDead)
+                return;
+
             if (collision.gameObject.CompareTag("Enemy")) {
                 stat.health.Remove(1);
                 isInvinsible = true;
@@ -149,9 +152,14 @@ namespace TJ
                 stat.health.Restore(1);
                 collision.gameObject.SetActive(false);
             }
-            else if (!isInvinsible && collision.gameObject.CompareTag("Enemy")) {
+            else if (!isInvinsible && collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet")) {
+
+                if (isDead)
+                    return;
+
                 stat.health.Remove(1);
                 isInvinsible = true;
+
                 StartCoroutine(Flickering_Begin_Callback());
             }
             else if (collision.gameObject.CompareTag("Coin")) {
@@ -213,8 +221,11 @@ namespace TJ
 
         void health_OnValueChanged(int value)
         {
-            isDead = (value <= 0);
-            if (isDead) {
+            if (isDead)
+                return;
+
+            if (value <= 0 && !isDead) {
+                isDead = true;
                 anim.SetTrigger("Dead");
                 gameObject.layer = LayerMask.NameToLayer("PlayerDead");
                 spriteRenderer.sortingOrder = 1;

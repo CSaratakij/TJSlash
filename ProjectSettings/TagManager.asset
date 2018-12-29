@@ -9,6 +9,7 @@ TagManager:
   - Potion
   - Item
   - Coin
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX

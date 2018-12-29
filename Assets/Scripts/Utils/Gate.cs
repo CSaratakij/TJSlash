@@ -12,6 +12,7 @@ namespace TJ
         GameObject[] objects;
 
         bool isPass;
+
         Color fadeOutColor;
         SpriteRenderer spriteRenderer;
 
@@ -47,8 +48,7 @@ namespace TJ
                 if (spriteRenderer.color.a <= 0.1f)
                     gameObject.SetActive(false);
             }
-            else
-            {
+            else {
                 foreach (GameObject obj in objects)
                 {
                     if (obj.activeSelf)

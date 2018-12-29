@@ -112,7 +112,7 @@ namespace TJ
             cacheLeftBound = leftBound.position;
             cacheRightBound = rightBound.position;
 
-            flipWait = new WaitForSeconds(1.0f);
+            flipWait = new WaitForSeconds(0.8f);
         }
 
         void MoveHandler()
