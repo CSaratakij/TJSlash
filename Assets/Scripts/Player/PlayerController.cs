@@ -106,12 +106,6 @@ namespace TJ
             SubscribeEvents();
         }
 
-        //Test
-        void Start()
-        {
-            GameController.Instance.GameStart();
-        }
-
         void OnDestroy()
         {
             UnSubscribeEvents();
@@ -119,6 +113,9 @@ namespace TJ
 
         void Update()
         {
+            if (!GameController.IsGameStart)
+                return;
+
             InputHandler();
             AnimationHandler();
             FlipHandler();
@@ -234,7 +231,7 @@ namespace TJ
 
         void InputHandler()
         {
-            if (isDead) {
+            if (isDead || !GameController.IsGameStart) {
                 inputVector = Vector2.zero;
                 isPressJump = false;
                 return;

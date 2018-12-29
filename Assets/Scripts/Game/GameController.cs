@@ -45,5 +45,10 @@ namespace TJ
             IsGameStart = false;
             OnGameStop?.Invoke();
         }
+
+        public void Reset()
+        {
+            IsGameStart = false;
+        }
     }
 }
