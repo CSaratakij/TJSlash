@@ -4,13 +4,38 @@ namespace TJ
 {
     public class Bullet : MonoBehaviour
     {
+        [SerializeField]
+        bool isLimitRange;
+
+        [SerializeField]
+        float maximumRange;
+        
         float force;
+
+        Vector2 maximumPos;
         Vector2 direction;
+
         Rigidbody2D rigid;
+
+
+        void OnEnable()
+        {
+            maximumPos = transform.position + (new Vector3(direction.x, direction.y, 0.0f) * maximumRange);
+        }
 
         void Awake()
         {
             rigid = GetComponent<Rigidbody2D>();
+        }
+
+        void LateUpdate()
+        {
+            if (!isLimitRange)
+                return;
+
+            if (Vector2.Distance(maximumPos, transform.position) <= 0.1f) {
+                gameObject.SetActive(false);
+            }
         }
 
         void FixedUpdate()
