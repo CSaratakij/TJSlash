@@ -44,9 +44,6 @@ namespace TJ
         LayerMask oneWayCollisionLayer;
 
         [SerializeField]
-        AudioClip jumpAudioClip;
-
-        [SerializeField]
         Gun gun;
 
         [SerializeField]
@@ -57,6 +54,12 @@ namespace TJ
 
         [SerializeField]
         LayerMask enemyLayer;
+
+        [SerializeField]
+        AudioClip jumpAudioClip;
+
+        [SerializeField]
+        AudioClip loseAudioClip;
 
         int totalJump;
         int totalCoin;
@@ -179,6 +182,7 @@ namespace TJ
             if (stat.health.current <= 0) {
                 Debug.Log("Dead...");
                 GameController.Instance.GameStop();
+                audioSource.PlayOneShot(loseAudioClip);
             }
         }
 
