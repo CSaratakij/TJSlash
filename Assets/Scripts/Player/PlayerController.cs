@@ -384,13 +384,18 @@ namespace TJ
 
         void AnimationHandler()
         {
-            anim.SetBool("IsWalk", isGrounded && (inputVector.x > 0.0f || inputVector.x < 0.0f));
-            anim.SetBool("IsJump", !isGrounded && velocity.y > 0.0f);
+            if (Time.timeScale > 0.0f) {
+                anim.SetBool("IsWalk", isGrounded && (inputVector.x > 0.0f || inputVector.x < 0.0f));
+                anim.SetBool("IsJump", !isGrounded && velocity.y > 0.0f);
+            }
+            else {
+                anim.SetBool("IsWalk", false);
+            }
         }
 
         void FlipHandler()
         {
-            if (!GameController.IsGameStart)
+            if (!GameController.IsGameStart || Time.timeScale <= 0.0f)
                 return;
 
             if (inputVector.x > 0.0f && !isFacingRight)
