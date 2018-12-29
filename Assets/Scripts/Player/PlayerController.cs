@@ -113,9 +113,6 @@ namespace TJ
 
         void Update()
         {
-            if (!GameController.IsGameStart)
-                return;
-
             InputHandler();
             AnimationHandler();
             FlipHandler();
@@ -162,6 +159,9 @@ namespace TJ
             else if (collision.gameObject.CompareTag("Coin")) {
                 totalCoin += 1;
                 collision.gameObject.SetActive(false);
+            }
+            else if (collision.gameObject.CompareTag("Flag")) {
+                GameController.Instance.GameStop();
             }
         }
 
@@ -363,6 +363,9 @@ namespace TJ
 
         void FlipHandler()
         {
+            if (!GameController.IsGameStart)
+                return;
+
             if (inputVector.x > 0.0f && !isFacingRight)
                 FlipSprite();
 
