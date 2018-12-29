@@ -232,13 +232,19 @@ MonoBehaviour:
   oneWayCollisionLayer:
     serializedVersion: 2
     m_Bits: 4096
-  jumpAudioClip: {fileID: 8300000, guid: cd9754e3e25de9d4495ea9338dfe83aa, type: 3}
   gun: {fileID: 401538697122158667}
   offset: {x: 0.04704881, y: -0.1293229, z: 0}
   size: {x: 0.9, y: 2}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
+  jumpAudioClip: {fileID: 8300000, guid: cd9754e3e25de9d4495ea9338dfe83aa, type: 3}
+  loseAudioClip: {fileID: 8300000, guid: 36c719a3de7810c43b6a2c28b7c58b52, type: 3}
+  winAudioClip: {fileID: 8300000, guid: 07325acbe41514e459102ca19208ce26, type: 3}
+  hitAudioClip: {fileID: 8300000, guid: 13c06131d17af2e4bb5a4a9a972e07e2, type: 3}
+  pickUpAudioClip: {fileID: 8300000, guid: 30d98508fc8fe3d46b24e0fbbf564a63, type: 3}
+  collectCointAudioClip: {fileID: 8300000, guid: 2f88beb7f7c6431498ae0c5a37d07a94,
+    type: 3}
 --- !u!61 &4947738608901973878
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -277,7 +283,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0

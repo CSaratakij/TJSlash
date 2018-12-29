@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -9,11 +10,18 @@ namespace TJ
     public class Gate : MonoBehaviour
     {
         [SerializeField]
+        AudioClip effects;
+
+        [SerializeField]
         GameObject[] objects;
 
         bool isPass;
+        bool isPlayEffect;
 
         Color fadeOutColor;
+        new Collider2D collider;
+
+        AudioSource audioSource;
         SpriteRenderer spriteRenderer;
 
 #if UNITY_EDITOR
@@ -37,7 +45,9 @@ namespace TJ
         void Awake()
         {
             fadeOutColor = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+            collider = GetComponent<Collider2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
+            audioSource = GetComponent<AudioSource>();
         }
 
         void LateUpdate()
@@ -45,8 +55,11 @@ namespace TJ
             if (isPass) {
                 spriteRenderer.color = Color.Lerp(spriteRenderer.color, fadeOutColor, 0.05f);
 
-                if (spriteRenderer.color.a <= 0.1f)
-                    gameObject.SetActive(false);
+                if (spriteRenderer.color.a <= 0.2f && !isPlayEffect) {
+                    audioSource.PlayOneShot(effects);
+                    StartCoroutine(PlayEffect_Callback());
+                    isPlayEffect = true;
+                }
             }
             else {
                 foreach (GameObject obj in objects)
@@ -56,7 +69,18 @@ namespace TJ
                 }
 
                 isPass = true;
+                collider.enabled = false;
             }
+        }
+
+        IEnumerator PlayEffect_Callback()
+        {
+            while (audioSource.isPlaying)
+            {
+                yield return null;
+            }
+
+            gameObject.SetActive(false);
         }
     }
 }

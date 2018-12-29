@@ -61,6 +61,18 @@ namespace TJ
         [SerializeField]
         AudioClip loseAudioClip;
 
+        [SerializeField]
+        AudioClip winAudioClip;
+
+        [SerializeField]
+        AudioClip hitAudioClip;
+
+        [SerializeField]
+        AudioClip pickUpAudioClip;
+
+        [SerializeField]
+        AudioClip collectCointAudioClip;
+
         int totalJump;
         int totalCoin;
 
@@ -153,19 +165,24 @@ namespace TJ
         {
             if (!isDead && !isInvinsible && (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet"))) {
                 stat.health.Remove(1);
+                audioSource.PlayOneShot(hitAudioClip);
+
                 StartCoroutine(Flickering_Begin_Callback());
                 isInvinsible = true;
             }
             else if ((stat.health.current < stat.health.max) && (collision.gameObject.CompareTag("Potion"))) {
                 stat.health.Restore(1);
                 collision.gameObject.SetActive(false);
+                audioSource.PlayOneShot(pickUpAudioClip);
             }
             else if (collision.gameObject.CompareTag("Coin")) {
                 totalCoin += 1;
                 collision.gameObject.SetActive(false);
+                audioSource.PlayOneShot(collectCointAudioClip);
             }
             else if (collision.gameObject.CompareTag("Flag")) {
                 GameController.Instance.GameStop();
+                audioSource.PlayOneShot(winAudioClip);
             }
         }
 
@@ -295,8 +312,9 @@ namespace TJ
                 return;
 
             stat.health.Remove(1);
-            StartCoroutine(Flickering_Begin_Callback());
+            audioSource.PlayOneShot(hitAudioClip);
 
+            StartCoroutine(Flickering_Begin_Callback());
             isInvinsible = true;
         }
 

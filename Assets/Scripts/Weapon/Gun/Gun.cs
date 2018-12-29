@@ -5,6 +5,12 @@ namespace TJ
     public class Gun : MonoBehaviour
     {
         [SerializeField]
+        bool isPlaySound;
+
+        [SerializeField]
+        AudioClip gunAudioClip;
+
+        [SerializeField]
         [Range(1, 100)]
         int maxBulletPooling;
 
@@ -23,6 +29,7 @@ namespace TJ
         Bullet[] bullets;
         Timer fireDelay;
 
+        AudioSource audioSource;
 
         void Awake()
         {
@@ -40,6 +47,8 @@ namespace TJ
             isAllowShoot = true;
 
             fireDelay = GetComponent<Timer>();
+            audioSource = GetComponent<AudioSource>();
+
             bullets = new Bullet[maxBulletPooling];
 
             for (int i = 0; i < maxBulletPooling; ++i) {
@@ -74,6 +83,9 @@ namespace TJ
                     bullet.Move(direction, bulletSpeed);
                     bullet.transform.position = barrelPoint.position;
                     bullet.gameObject.SetActive(true);
+
+                    if (isPlaySound)
+                        audioSource.PlayOneShot(gunAudioClip);
 
                     isAllowShoot = false;
                     fireDelay.Countdown();

@@ -8903,7 +8903,7 @@ PrefabInstance:
     - target: {fileID: 6369244295530194321, guid: 929f19b684927d645be58a781b661223,
         type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6369244295530194321, guid: 929f19b684927d645be58a781b661223,
         type: 3}
@@ -15632,6 +15632,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 536254177, guid: f0dbcaa904be69744b2c62088df03ecf, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 653243911331289767, guid: f0dbcaa904be69744b2c62088df03ecf,
         type: 3}
       propertyPath: m_IsActive
@@ -15887,11 +15891,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4947738608901973879, guid: ca362b01d83b7344a8297ce3a68c1d3e,
-        type: 3}
-      propertyPath: loseAudioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 36c719a3de7810c43b6a2c28b7c58b52, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca362b01d83b7344a8297ce3a68c1d3e, type: 3}
 --- !u!1001 &5096852743766105306
@@ -16473,6 +16472,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6431152233328699648, guid: dbce6b7ddadebd3418ecf9c9b1e7769e,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6431152233328699650, guid: dbce6b7ddadebd3418ecf9c9b1e7769e,
         type: 3}
