@@ -36,7 +36,7 @@ namespace TJ
         SpriteRenderer spriteRenderer;
 
         Timer timer;
-        Collider2D collider;
+        new Collider2D collider;
 
 
         void Awake()
